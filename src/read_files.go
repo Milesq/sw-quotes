@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func ReadFiles(dir string) (ret []string) {
+func readFiles(dir string) (ret []string) {
 	files, err := ioutil.ReadDir("bin")
 
 	if err != nil {

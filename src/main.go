@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Printf("%#v", ReadFiles("bin"))
+	fmt.Printf("%#v", readFiles("bin"))
 }
