@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/milesq/sw-quotes/src/movie"
+)
 
 func main() {
-	fmt.Printf("%#v", readFiles("bin"))
+	fmt.Println(movie.Parse("movies/my"))
 }

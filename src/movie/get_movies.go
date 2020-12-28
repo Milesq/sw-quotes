@@ -1,4 +1,4 @@
-package main
+package movie
 
 import (
 	"io/ioutil"
@@ -6,8 +6,9 @@ import (
 	"strings"
 )
 
-func readFiles(dir string) (ret []string) {
-	files, err := ioutil.ReadDir("bin")
+// ReadFiles collects information about movies in specific dir
+func ReadFiles(dir string) (ret []string) {
+	files, err := ioutil.ReadDir(dir)
 
 	if err != nil {
 		log.Fatal(err)
