@@ -2,6 +2,8 @@ package movie
 
 import (
 	"log"
+	"regexp"
+	"strings"
 	"time"
 
 	"github.com/asticode/go-astisub"
@@ -24,6 +26,12 @@ func Parse(name string) []Subtitle {
 	}
 
 	return funk.Map(srts.Items, func(s *astisub.Item) Subtitle {
-		return Subtitle{s.StartAt, s.EndAt, s.String()}
+		return Subtitle{s.StartAt, s.EndAt, normalize(s.String())}
 	}).([]Subtitle)
+}
+
+func normalize(s string) string {
+	re := regexp.MustCompile(`[^a-zA-Z0-9 ]`)
+
+	return strings.ToLower(re.ReplaceAllString(s, ""))
 }
