@@ -17,8 +17,8 @@ type Subtitle struct {
 	text  string
 }
 
-// Parse parses subtitle file
-func Parse(name string) []Subtitle {
+// ParseFromFile parses subtitle file
+func ParseFromFile(name string) []Subtitle {
 	srts, err := astisub.OpenFile("./movies/my.srt")
 
 	if err != nil {
