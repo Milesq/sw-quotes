@@ -6,17 +6,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-type Scene struct {
-	Name      string
-	Filename  string
-	Srt       string
-	Timestamp [][2]string
-}
-
-// Config contains scenes from config file
-type Config []Scene
-
-// Parse
+// Parse creates Config
 func Parse(data []byte) (parsed Config) {
 	yaml.Unmarshal(data, &parsed)
 	return
