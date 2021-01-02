@@ -4,3 +4,11 @@
   srt: D:\Filmy\Filmy\Star wars\3.9) Łotr Jeden\rogue one.srt
   timestamp:
     - ['2:04:01', '2:04:37']
+
+-
+  name: luke:hallway
+  filename: D:\Filmy\Seriale\Mandalorian\Season 2\8.mp4
+  timestamp:
+    - ['32:56', '33:13']
+    - ['33:19', '33:37']
+    - ['34:09,5', '34:18']
