@@ -1,8 +1,6 @@
 package movie
 
 import (
-	"fmt"
-	"os"
 	"regexp"
 	"strings"
 
@@ -20,7 +18,7 @@ func NewScenePtr(s string, cfg config.Config) (config.ScenePtr, error) {
 		getNamedScene(s, cfg)
 		scene, ok := getNamedScene(s, cfg)
 		if !ok {
-			return config.ScenePtr{}, os.ErrNotExist
+			return config.ScenePtr{}, ErrNotFound
 		}
 
 		return scene, nil
@@ -30,9 +28,9 @@ func NewScenePtr(s string, cfg config.Config) (config.ScenePtr, error) {
 	quoteRegexp := `^(#\d+)?` + quoteWord + `\-` + quoteWord + `$`
 	quote := regexp.MustCompile(quoteRegexp)
 
-	matchToQuote := quote.MatchString(s)
-
-	fmt.Printf("%v\n\n", matchToQuote)
+	if !quote.MatchString(s) {
+		return config.ScenePtr{}, ErrQueryDoesntMatch
+	}
 
 	return config.ScenePtr{}, nil
 }
