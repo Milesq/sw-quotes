@@ -4,9 +4,9 @@ import "github.com/milesq/sw-quotes/src/config"
 
 // Phrase .
 type Phrase struct {
-	str    string
-	offset int
-	i      int
+	Str    string
+	Offset int
+	I      int
 }
 
 // Query .

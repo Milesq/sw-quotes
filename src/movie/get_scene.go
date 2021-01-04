@@ -49,10 +49,10 @@ func parseQuery(r *regexp.Regexp, s string) get_scene.Query {
 
 	parts := r.FindStringSubmatch(s)
 
-	return query{
+	return get_scene.Query{
 		atoi(parts[2]),
-		phrase{parts[3], atoi(parts[5]), atoi(parts[7])},
-		phrase{parts[8], atoi(parts[10]), atoi(parts[12])},
+		get_scene.Phrase{parts[3], atoi(parts[5]), atoi(parts[7])},
+		get_scene.Phrase{parts[8], atoi(parts[10]), atoi(parts[12])},
 	}
 }
 
