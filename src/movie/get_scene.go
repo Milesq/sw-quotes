@@ -9,7 +9,6 @@ import (
 	"github.com/thoas/go-funk"
 
 	"github.com/milesq/sw-quotes/src/config"
-	"github.com/milesq/sw-quotes/src/utils"
 )
 
 type phrase struct {
@@ -56,7 +55,9 @@ func NewScenePtr(s string, cfg config.Config) (config.ScenePtr, error) {
 func parseQuery(r *regexp.Regexp, s string) query {
 	atoi := func(str string) int {
 		num, err := strconv.Atoi(str)
-		utils.Expect(err)
+		if err != nil {
+			return 0
+		}
 
 		return num
 	}
