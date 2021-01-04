@@ -34,7 +34,7 @@ func NewScenePtr(s string, cfg config.Config) (config.ScenePtr, error) {
 	query := parseQuery(quote, s)
 	scene := get_scene.FromQuery(query, cfg)
 
-	return config.ScenePtr{}, nil
+	return scene, nil
 }
 
 func parseQuery(r *regexp.Regexp, s string) get_scene.Query {
