@@ -1,27 +1,13 @@
 package movie
 
 import (
-	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
 
-	"github.com/thoas/go-funk"
-
 	"github.com/milesq/sw-quotes/src/config"
+	get_scene "github.com/milesq/sw-quotes/src/movie/get-scene"
 )
-
-type phrase struct {
-	str    string
-	offset int
-	i      int
-}
-
-type query struct {
-	movieID   int
-	begPhrase phrase
-	endPhrase phrase
-}
 
 // NewScenePtr creates Scene Ptr
 func NewScenePtr(s string, cfg config.Config) (config.ScenePtr, error) {
@@ -29,8 +15,7 @@ func NewScenePtr(s string, cfg config.Config) (config.ScenePtr, error) {
 
 	isNamedScene := regexp.MustCompile(`^[0-9a-z/\-\+\\_:]+$`).MatchString(s)
 	if isNamedScene {
-		getNamedScene(s, cfg)
-		scene, ok := getNamedScene(s, cfg)
+		scene, ok := get_scene.Named(s, cfg)
 		if !ok {
 			return config.ScenePtr{}, ErrNotFound
 		}
@@ -47,12 +32,12 @@ func NewScenePtr(s string, cfg config.Config) (config.ScenePtr, error) {
 	}
 
 	query := parseQuery(quote, s)
-	fmt.Printf("%v", query)
+	scene := get_scene.FromQuery(query, cfg)
 
 	return config.ScenePtr{}, nil
 }
 
-func parseQuery(r *regexp.Regexp, s string) query {
+func parseQuery(r *regexp.Regexp, s string) get_scene.Query {
 	atoi := func(str string) int {
 		num, err := strconv.Atoi(str)
 		if err != nil {
@@ -69,18 +54,6 @@ func parseQuery(r *regexp.Regexp, s string) query {
 		phrase{parts[3], atoi(parts[5]), atoi(parts[7])},
 		phrase{parts[8], atoi(parts[10]), atoi(parts[12])},
 	}
-}
-
-func getNamedScene(name string, cfg config.Config) (s config.ScenePtr, false bool) {
-	found := funk.Find(cfg, func(sc config.ScenePtr) bool {
-		return sc.Name == name
-	})
-
-	if found == nil {
-		return
-	}
-
-	return found.(config.ScenePtr), true
 }
 
 // func GetScene(scene ScenePtr) {}

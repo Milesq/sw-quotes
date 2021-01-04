@@ -15,7 +15,7 @@ func main() {
 	}
 
 	// fmt.Println(config.ParseFromFile("./movies.config.yml"))
-	// movie.NewScenePtr(`"You turned her against me"-"I will do what I must"`, globalCfg)
-	movie.NewScenePtr(`#1"You turned her against me"(-2)[3]-"I will do what I must"(4)[5]`, globalCfg)
+	movie.NewScenePtr(`"You turned her against me"-"I will do what I must"`, globalCfg)
+	// movie.NewScenePtr(`#1"You turned her against me"(-2)[3]-"I will do what I must"(4)[5]`, globalCfg)
 	// movie.NewScenePtr(`luked:hallway`, globalCfg)
 }
