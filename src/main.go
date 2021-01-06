@@ -21,9 +21,9 @@ func main() {
 	// movie.NewResolver(globalCfg, movieDir, []string{"my"})
 	movie.NewResolver(globalCfg, movieDir, readFiles(movieDir))
 
-	// movie.Resolve(`"You turned her against me"-"I will do what I must"`, globalCfg)
-	// movie.NewScenePtr(`#1"You turned her against me"(-2)[3]-"I will do what I must"(4)[5]`, globalCfg)
-	// movie.NewScenePtr(`luked:hallway`, globalCfg)
+	// resolver.Resolve(`"You turned her against me"-"I will do what I must"`, globalCfg)
+	// resolver.Resolve(`#1"You turned her against me"(-2)[3]-"I will do what I must"(4)[5]`, globalCfg)
+	// resolver.Resolve(`luked:hallway`, globalCfg)
 }
 
 func readFiles(dir string) (ret []string) {

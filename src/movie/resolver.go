@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/milesq/sw-quotes/src/config"
-	get_scene "github.com/milesq/sw-quotes/src/movie/get-scene"
+	parse_query "github.com/milesq/sw-quotes/src/movie/parse-query"
 	"github.com/milesq/sw-quotes/src/srt"
 	"github.com/thoas/go-funk"
 )
@@ -58,7 +58,7 @@ func (r *Resolver) Resolve(s string, cfg config.Config) (config.ScenePtr, error)
 
 	isNamedScene := regexp.MustCompile(`^[0-9a-z/\-\+\\_:]+$`).MatchString(s)
 	if isNamedScene {
-		scene, ok := get_scene.Named(s, cfg)
+		scene, ok := parse_query.Named(s, cfg)
 		if !ok {
 			return config.ScenePtr{}, ErrNotFound
 		}
@@ -75,7 +75,7 @@ func (r *Resolver) Resolve(s string, cfg config.Config) (config.ScenePtr, error)
 	}
 
 	query := parseQuery(quote, s)
-	scene := get_scene.FromQuery(query, cfg)
+	scene := parse_query.FromQuery(query, cfg)
 
 	return scene, nil
 }
