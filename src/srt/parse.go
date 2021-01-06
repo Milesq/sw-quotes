@@ -1,4 +1,4 @@
-package movie
+package srt
 
 import (
 	"log"
@@ -17,9 +17,9 @@ type Subtitle struct {
 	text  string
 }
 
-// ParseFromFile parses subtitle file
-func ParseFromFile(name string) []Subtitle {
-	srts, err := astisub.OpenFile("./movies/my.srt")
+// FromFile parses subtitle file
+func FromFile(name string) []Subtitle {
+	srts, err := astisub.OpenFile(name)
 
 	if err != nil {
 		log.Fatal(err)
