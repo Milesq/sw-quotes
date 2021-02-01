@@ -77,5 +77,7 @@ func (r *Resolver) Resolve(s string, cfg config.Config) (config.ScenePtr, error)
 	query := parseQuery(quote, s)
 	scene := parse_query.FromQuery(query, cfg)
 
+	fmt.Println(query)
+
 	return scene, nil
 }
