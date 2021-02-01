@@ -20,8 +20,15 @@ func parseQuery(r *regexp.Regexp, s string) parse_query.Query {
 	parts := r.FindStringSubmatch(s)
 
 	return parse_query.Query{
-		atoi(parts[2]),
-		parse_query.Phrase{parts[3], atoi(parts[5]), atoi(parts[7])},
-		parse_query.Phrase{parts[8], atoi(parts[10]), atoi(parts[12])},
+		MovieID: atoi(parts[2]),
+		BegPhrase: parse_query.Phrase{
+			Str:    parts[3],
+			Offset: atoi(parts[5]),
+			I:      atoi(parts[7]),
+		},
+		EndPhrase: parse_query.Phrase{
+			Str:    parts[8],
+			Offset: atoi(parts[10]),
+			I:      atoi(parts[12])},
 	}
 }
