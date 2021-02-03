@@ -51,19 +51,19 @@ func (r *Resolver) Resolve(s string, cfg config.Config) (config.ScenePtr, error)
 	s = strings.ToLower(s)
 	var (
 		scene config.ScenePtr
-		ok    bool
+		err   error
 	)
 
 	isNamedScene := regexp.MustCompile(`^[0-9a-z/\-\+\\_:]+$`).MatchString(s)
 
 	if isNamedScene {
-		scene, ok = parse_query.Named(s, cfg)
+		scene, err = parse_query.Named(s, cfg)
 	} else {
-		scene, ok = parse_query.FromDialogQuery(s, r.AllScenes, cfg)
+		scene, err = parse_query.FromDialogQuery(s, r.AllScenes, cfg)
 	}
 
-	if !ok {
-		return config.ScenePtr{}, ErrNotFound
+	if err != nil {
+		return config.ScenePtr{}, err
 	}
 
 	return scene, nil

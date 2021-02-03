@@ -23,7 +23,7 @@ type Query struct {
 }
 
 // FromDialogQuery .
-func FromDialogQuery(rawQuery string, scenes []srt.MovieData, cfg config.Config) (s config.ScenePtr, false bool) {
+func FromDialogQuery(rawQuery string, scenes []srt.MovieData, cfg config.Config) (s config.ScenePtr, ErrQueryDoesntMatch error) {
 	quoteWord := `"([\w\s]+)"(\((\-?[0-9]+)\))?(\[(\d+)\])?`
 	quoteRegexp := `^(#(\d+))?` + quoteWord + `\-` + quoteWord + `$`
 	quote := regexp.MustCompile(quoteRegexp)
@@ -35,5 +35,5 @@ func FromDialogQuery(rawQuery string, scenes []srt.MovieData, cfg config.Config)
 	query := parseQuery(quote, rawQuery)
 	fmt.Println(query)
 
-	return s, true
+	return s, nil
 }
