@@ -1,6 +1,11 @@
 package getscene
 
-import "github.com/milesq/sw-quotes/src/config"
+import (
+	"fmt"
+
+	"github.com/milesq/sw-quotes/src/config"
+	"github.com/milesq/sw-quotes/src/srt"
+)
 
 // Phrase .
 type Phrase struct {
@@ -16,7 +21,8 @@ type Query struct {
 	EndPhrase Phrase
 }
 
-// FromQuery .
-func FromQuery(query Query, cfg config.Config) config.ScenePtr {
+// FromDialogQuery .
+func FromDialogQuery(scenes []srt.MovieData, query Query) config.ScenePtr {
+	fmt.Println(query)
 	return config.ScenePtr{}
 }
