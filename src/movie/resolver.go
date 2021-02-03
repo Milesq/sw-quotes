@@ -13,16 +13,10 @@ import (
 	"github.com/thoas/go-funk"
 )
 
-type movieData struct {
-	fileName string
-	movieID  string
-	srts     []srt.Subtitle
-}
-
 // Resolver .
 type Resolver struct {
 	NamedScenes config.Config
-	AllScenes   []movieData
+	AllScenes   []srt.MovieData
 }
 
 // NewResolver .
@@ -32,16 +26,16 @@ func NewResolver(namedScenes config.Config, dir string, movies []string) Resolve
 		return [2]string{s, hex.EncodeToString(id[:])}
 	}).([][2]string)
 
-	var allScenes []movieData
+	var allScenes []srt.MovieData
 
 	for _, movie := range moviesWithID {
-		var movieData movieData
+		var movieData srt.MovieData
 
-		movieData.fileName = movie[0]
-		movieData.movieID = movie[1]
+		movieData.FileName = movie[0]
+		movieData.MovieID = movie[1]
 
 		srtPath := fmt.Sprintf("./%v/%v.srt", dir, movie[0])
-		movieData.srts = srt.FromFile(srtPath)
+		movieData.Srts = srt.FromFile(srtPath)
 
 		allScenes = append(allScenes, movieData)
 	}
@@ -75,9 +69,8 @@ func (r *Resolver) Resolve(s string, cfg config.Config) (config.ScenePtr, error)
 	}
 
 	query := parseQuery(quote, s)
-	scene := parse_query.FromQuery(query, cfg)
-
-	fmt.Println(query)
+	scene := parse_query.FromDialogQuery(r.AllScenes, query)
+	// fmt.Println(r.AllScenes)
 
 	return scene, nil
 }
