@@ -49,28 +49,22 @@ func NewResolver(namedScenes config.Config, dir string, movies []string) Resolve
 // Resolve .
 func (r *Resolver) Resolve(s string, cfg config.Config) (config.ScenePtr, error) {
 	s = strings.ToLower(s)
+	var (
+		scene config.ScenePtr
+		ok    bool
+	)
 
 	isNamedScene := regexp.MustCompile(`^[0-9a-z/\-\+\\_:]+$`).MatchString(s)
+
 	if isNamedScene {
-		scene, ok := parse_query.Named(s, cfg)
-		if !ok {
-			return config.ScenePtr{}, ErrNotFound
-		}
-
-		return scene, nil
+		scene, ok = parse_query.Named(s, cfg)
+	} else {
+		scene, ok = parse_query.FromDialogQuery(s, r.AllScenes, cfg)
 	}
 
-	quoteWord := `"([\w\s]+)"(\((\-?[0-9]+)\))?(\[(\d+)\])?`
-	quoteRegexp := `^(#(\d+))?` + quoteWord + `\-` + quoteWord + `$`
-	quote := regexp.MustCompile(quoteRegexp)
-
-	if !quote.MatchString(s) {
-		return config.ScenePtr{}, ErrQueryDoesntMatch
+	if !ok {
+		return config.ScenePtr{}, ErrNotFound
 	}
-
-	query := parseQuery(quote, s)
-	scene := parse_query.FromDialogQuery(r.AllScenes, query)
-	// fmt.Println(r.AllScenes)
 
 	return scene, nil
 }

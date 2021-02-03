@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"strings"
@@ -20,8 +21,9 @@ func main() {
 
 	resolver := movie.NewResolver(globalCfg, movieDir, readFiles(movieDir))
 
-	resolver.Resolve(`luked:hallway`, globalCfg)
-	// resolver.Resolve(`"You turned her against me"-"I will do what I must"`, globalCfg)
+	// resolver.Resolve(`vader:hallway`, globalCfg)
+	e, _ := resolver.Resolve(`"You turned her against me"-"I will do what I must"`, globalCfg)
+	fmt.Println(e)
 	// resolver.Resolve(`#1"You turned her against me"(-2)[3]-"I will do what I must"(4)[5]`, globalCfg)
 }
 

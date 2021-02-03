@@ -2,6 +2,7 @@ package getscene
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/milesq/sw-quotes/src/config"
 	"github.com/milesq/sw-quotes/src/srt"
@@ -22,7 +23,17 @@ type Query struct {
 }
 
 // FromDialogQuery .
-func FromDialogQuery(scenes []srt.MovieData, query Query) config.ScenePtr {
+func FromDialogQuery(rawQuery string, scenes []srt.MovieData, cfg config.Config) (s config.ScenePtr, false bool) {
+	quoteWord := `"([\w\s]+)"(\((\-?[0-9]+)\))?(\[(\d+)\])?`
+	quoteRegexp := `^(#(\d+))?` + quoteWord + `\-` + quoteWord + `$`
+	quote := regexp.MustCompile(quoteRegexp)
+
+	if !quote.MatchString(rawQuery) {
+		return
+	}
+
+	query := parseQuery(quote, rawQuery)
 	fmt.Println(query)
-	return config.ScenePtr{}
+
+	return s, true
 }
