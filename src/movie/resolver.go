@@ -59,7 +59,7 @@ func (r *Resolver) Resolve(s string, cfg config.Config) (config.ScenePtr, error)
 	if isNamedScene {
 		scene, err = parse_query.Named(s, cfg)
 	} else {
-		scene, err = parse_query.FromDialogQuery(s, r.AllScenes, cfg)
+		scene, err = parse_query.FromDialogQuery(s, r.AllScenes)
 	}
 
 	if err != nil {
