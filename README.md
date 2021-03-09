@@ -9,3 +9,5 @@ I'll create discord bot which will consume this API and publish Star Wars scene
 ## Descritpion
 
 In movies.config.yml you can define named scenes, which can be achieved later by their names
+
+In movies directory, you should place movies & srt files belonging to them
