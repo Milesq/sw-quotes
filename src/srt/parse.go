@@ -12,9 +12,9 @@ import (
 
 // Subtitle contains basic srt data
 type Subtitle struct {
-	begin time.Duration
-	end   time.Duration
-	text  string
+	Begin time.Duration
+	End   time.Duration
+	Text  string
 }
 
 // FromFile parses subtitle file
