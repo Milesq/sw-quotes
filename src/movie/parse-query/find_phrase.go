@@ -26,7 +26,11 @@ func findPhrase(phrase string, movies []srt.MovieData) error {
 		}
 	}
 
-	if len(foundedScene) > 1 {
+	switch len(foundedScene) {
+	case 1:
+	case 0:
+		return errors.New("we couldnt find the following scene: " + phrase)
+	default:
 		err := "we found multiple matching phrases. You have to precise which one you want to use\n"
 		for i, scene := range foundedScene {
 			err += fmt.Sprint(
