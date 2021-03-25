@@ -1,6 +1,7 @@
 package srt
 
 import (
+	"fmt"
 	"log"
 	"regexp"
 	"strings"
@@ -15,6 +16,15 @@ type Subtitle struct {
 	Begin time.Duration
 	End   time.Duration
 	Text  string
+}
+
+func (s Subtitle) String() string {
+	return fmt.Sprintf(
+		`%v-%v "%v"`,
+		s.Begin.Round(time.Second),
+		s.End.Round(time.Second),
+		s.Text,
+	)
 }
 
 // FromFile parses subtitle file
