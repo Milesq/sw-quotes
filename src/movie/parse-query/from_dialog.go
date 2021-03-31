@@ -33,11 +33,12 @@ func FromDialogQuery(rawQuery string, scenes []srt.MovieData) (s config.ScenePtr
 	}
 
 	query := parseQuery(quote, rawQuery)
-	err := findPhrase(query.BegPhrase.Str, scenes)
+	scene, err := findPhrase(query.BegPhrase.Str, scenes)
 
 	if err != nil {
 		fmt.Println(err)
 	}
+	fmt.Println(scene)
 
 	return
 }

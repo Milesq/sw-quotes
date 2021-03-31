@@ -11,7 +11,7 @@ import (
 
 const phrasePassThreshold = .85
 
-func findPhrase(phrase string, movies []srt.MovieData) error {
+func findPhrase(phrase string, movies []srt.MovieData) (srt.MovieData, error) {
 	var foundedScene []srt.MovieData
 
 	for _, movie := range movies {
@@ -28,8 +28,9 @@ func findPhrase(phrase string, movies []srt.MovieData) error {
 
 	switch len(foundedScene) {
 	case 1:
+		return foundedScene[0], nil
 	case 0:
-		return errors.New("we couldnt find the following scene: " + phrase)
+		return srt.MovieData{}, errors.New("we couldnt find the following scene: " + phrase)
 	default:
 		err := "we found multiple matching phrases. You have to precise which one you want to use\n"
 		for i, scene := range foundedScene {
@@ -46,8 +47,6 @@ func findPhrase(phrase string, movies []srt.MovieData) error {
 			)
 		}
 
-		return errors.New(err)
+		return srt.MovieData{}, errors.New(err)
 	}
-
-	return nil
 }
