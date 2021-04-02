@@ -4,7 +4,7 @@ import "errors"
 
 var (
 	// ErrNotFound .
-	ErrNotFound = errors.New("Scene not found")
+	ErrNotFound = errors.New("scene not found")
 	// ErrQueryDoesntMatch .
-	ErrQueryDoesntMatch = errors.New("Query is invalid")
+	ErrQueryDoesntMatch = errors.New("query is invalid")
 )
