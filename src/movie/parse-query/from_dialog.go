@@ -1,6 +1,7 @@
 package getscene
 
 import (
+	"errors"
 	"fmt"
 	"regexp"
 	"strings"
@@ -35,22 +36,30 @@ func FromDialogQuery(rawQuery string, scenes []srt.MovieData) (s config.ScenePtr
 	}
 
 	query := parseQuery(quote, rawQuery)
-	scene, err := findPhrase(query.BegPhrase.Str, scenes)
-
+	begScene, err := findPhrase(query.BegPhrase.Str, scenes)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	s.Filename = scene.FileName
+	endScene, err := findPhrase(query.EndPhrase.Str, scenes)
+	if err != nil {
+		fmt.Println(err)
+	}
 
-	s.Srt = strings.Join(funk.Map(scene.Srts, func(el srt.Subtitle) string {
+	if begScene.FileName != endScene.FileName {
+		return s, errors.New("scenes doesnt come from the same movie")
+	}
+
+	s.Filename = begScene.FileName
+
+	s.Srt = strings.Join(funk.Map(begScene.Srts, func(el srt.Subtitle) string {
 		return el.Text
 	}).([]string), " ")
 
 	s.Timestamp = [][2]string{
 		{
-			scene.Srts[0].Begin.String(),
-			scene.Srts[len(scene.Srts)-1].End.String(),
+			begScene.Srts[0].Begin.String(),
+			endScene.Srts[len(endScene.Srts)-1].End.String(),
 		},
 	}
 
