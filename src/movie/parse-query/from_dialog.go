@@ -26,7 +26,7 @@ type Query struct {
 }
 
 // FromDialogQuery .
-func FromDialogQuery(rawQuery string, scenes []srt.MovieData) (s config.ScenePtr, nil error) {
+func FromDialogQuery(rawQuery string, movies []srt.MovieData) (s config.ScenePtr, nil error) {
 	quoteWord := `"([\w\s]+)"(\((\-?[0-9]+)\))?(\[(\d+)\])?`
 	quoteRegexp := `^(#(\d+))?` + quoteWord + `\-` + quoteWord + `$`
 	quote := regexp.MustCompile(quoteRegexp)
@@ -36,23 +36,28 @@ func FromDialogQuery(rawQuery string, scenes []srt.MovieData) (s config.ScenePtr
 	}
 
 	query := parseQuery(quote, rawQuery)
-	begScene, err := findPhrase(query.BegPhrase.Str, scenes)
+	begScene, err := findPhrase(query.BegPhrase.Str, movies)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	endScene, err := findPhrase(query.EndPhrase.Str, scenes)
+	endScene, err := findPhrase(query.EndPhrase.Str, movies)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	if begScene.FileName != endScene.FileName {
+	if begScene.MovieID != endScene.MovieID {
 		return s, errors.New("scenes doesnt come from the same movie")
 	}
 
 	s.Filename = begScene.FileName
 
-	s.Srt = strings.Join(funk.Map(begScene.Srts, func(el srt.Subtitle) string {
+	movieScenes := funk.Find(movies, func(movie srt.MovieData) bool {
+		return movie.MovieID == begScene.MovieID
+	}).(srt.MovieData).Srts
+	wholeSceneSrts := get_srt_between_scenes(movieScenes, begScene.Srts[0], endScene.Srts[0])
+
+	s.Srt = strings.Join(funk.Map(wholeSceneSrts, func(el srt.Subtitle) string {
 		return el.Text
 	}).([]string), " ")
 
