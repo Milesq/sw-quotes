@@ -13,6 +13,7 @@ import (
 
 // Subtitle contains basic srt data
 type Subtitle struct {
+	ID    int
 	Begin time.Duration
 	End   time.Duration
 	Text  string
@@ -35,8 +36,10 @@ func FromFile(name string) []Subtitle {
 		log.Fatal(err)
 	}
 
+	id := -1
 	return funk.Map(srts.Items, func(s *astisub.Item) Subtitle {
-		return Subtitle{s.StartAt, s.EndAt, normalize(s.String())}
+		id++
+		return Subtitle{id, s.StartAt, s.EndAt, normalize(s.String())}
 	}).([]Subtitle)
 }
 

@@ -70,3 +70,7 @@ func FromDialogQuery(rawQuery string, movies []srt.MovieData) (s config.ScenePtr
 
 	return
 }
+
+func get_srt_between_scenes(wholeSrts []srt.Subtitle, beg, end srt.Subtitle) []srt.Subtitle {
+	return wholeSrts[beg.ID:end.ID]
+}
