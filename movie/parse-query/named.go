@@ -3,7 +3,7 @@ package getscene
 import (
 	"github.com/thoas/go-funk"
 
-	"github.com/milesq/sw-quotes/src/config"
+	"github.com/milesq/sw-quotes/config"
 )
 
 // Named .

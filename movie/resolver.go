@@ -7,9 +7,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/milesq/sw-quotes/src/config"
-	parse_query "github.com/milesq/sw-quotes/src/movie/parse-query"
-	"github.com/milesq/sw-quotes/src/srt"
+	"github.com/milesq/sw-quotes/config"
+	parse_query "github.com/milesq/sw-quotes/movie/parse-query"
+	"github.com/milesq/sw-quotes/srt"
 	"github.com/thoas/go-funk"
 )
 

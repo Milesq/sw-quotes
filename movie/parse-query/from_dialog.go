@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/milesq/sw-quotes/src/config"
-	"github.com/milesq/sw-quotes/src/srt"
+	"github.com/milesq/sw-quotes/config"
+	"github.com/milesq/sw-quotes/srt"
 	"github.com/thoas/go-funk"
 )
 

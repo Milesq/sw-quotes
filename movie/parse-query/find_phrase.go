@@ -6,7 +6,7 @@ import (
 
 	"github.com/adrg/strutil"
 	"github.com/adrg/strutil/metrics"
-	"github.com/milesq/sw-quotes/src/srt"
+	"github.com/milesq/sw-quotes/srt"
 )
 
 const phrasePassThreshold = .85
