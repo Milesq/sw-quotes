@@ -1,4 +1,4 @@
-package main
+package eventHandlers
 
 import (
 	"github.com/milesq/sw-quotes/config"
@@ -20,7 +20,6 @@ func init() {
 	resolver = movie.NewResolver(globalCfg, movieDir, utils.ReadFiles(movieDir))
 }
 
-// Resolve .
-func Resolve(query string) (config.ScenePtr, error) {
+func resolveQuery(query string) (config.ScenePtr, error) {
 	return resolver.Resolve(query)
 }

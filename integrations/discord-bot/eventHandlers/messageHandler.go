@@ -1,19 +1,31 @@
 package eventHandlers
 
 import (
-	"time"
+	"strings"
 
 	"github.com/bwmarrin/discordgo"
 )
 
-func MessageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
-	if s.State.User.ID == m.Author.ID {
+const prefix = "quote!"
+
+func MessageHandler(s *discordgo.Session, msg *discordgo.MessageCreate) {
+	respond := func(content string) {
+		s.ChannelMessageSend(msg.ChannelID, content)
+	}
+
+	if s.State.User.ID == msg.Author.ID {
 		return
 	}
 
-	s.ChannelMessageSend(m.ChannelID, "Hello "+m.Author.Username)
+	if !strings.HasPrefix(msg.Content, prefix) {
+		return
+	}
 
-	time.Sleep(time.Second * 2)
+	result, err := resolveQuery(msg.Content)
 
-	s.ChannelMessageSend(m.ChannelID, "I'm basic discord bot written in GoLang btw")
+	if err != nil {
+		respond("error")
+	}
+
+	respond(result.Srt)
 }
