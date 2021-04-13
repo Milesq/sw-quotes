@@ -1,6 +1,6 @@
 module github.com/milesq/sw-quotes
 
-go 1.15
+go 1.16
 
 require (
 	github.com/adrg/strutil v0.2.3
