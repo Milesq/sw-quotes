@@ -1,6 +1,7 @@
 package eventHandlers
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
@@ -20,14 +21,22 @@ func MessageHandler(s *discordgo.Session, msg *discordgo.MessageCreate) {
 		return
 	}
 
-	if msg.Content == prefix+"help" {
+	command := strings.TrimPrefix(msg.Content, prefix)
+	command = strings.TrimSpace(command)
+
+	switch command {
+	case "help":
 		respond(messages.HELP_MSG)
+		return
+	case "scenes":
+		respond(predefinedSceneInfo)
 		return
 	}
 
-	result, err := resolveQuery(msg.Content)
+	result, err := resolveQuery(command)
 
 	if err != nil {
+		fmt.Println(err)
 		respond("error")
 	}
 
