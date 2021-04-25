@@ -7,13 +7,13 @@ import (
 )
 
 // Named .
-func Named(name string, cfg config.Config) (s config.ScenePtr, ErrNotFound error) {
+func Named(name string, cfg config.Config) (config.ScenePtr, error) {
 	found := funk.Find(cfg, func(sc config.ScenePtr) bool {
 		return sc.Name == name
 	})
 
 	if found == nil {
-		return
+		return config.ScenePtr{}, ErrNotFound
 	}
 
 	return found.(config.ScenePtr), nil

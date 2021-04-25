@@ -1,7 +1,6 @@
 package eventHandlers
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
@@ -36,8 +35,7 @@ func MessageHandler(s *discordgo.Session, msg *discordgo.MessageCreate) {
 	result, err := resolveQuery(command)
 
 	if err != nil {
-		fmt.Println(err)
-		respond("error")
+		respond(err.Error())
 	}
 
 	respond(result.Srt)
