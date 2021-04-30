@@ -14,6 +14,7 @@ const movieDir = "movies"
 var resolver movie.Resolver
 var globalConfig config.Config
 var predefinedSceneInfo string
+var availableMovies [][2]string
 
 func getPredefinedScenes(globalConfig config.Config) string {
 	result := "There are defined following scenes:\n"
@@ -37,6 +38,10 @@ func init() {
 	globalConfig, _ = config.ParseFromFile("./movies.config.yml")
 
 	resolver = movie.NewResolver(globalConfig, movieDir, utils.ReadFiles(movieDir))
+	for _, scene := range resolver.AllScenes {
+		availableMovies = append(availableMovies, [2]string{scene.FileName, scene.MovieID})
+	}
+
 	predefinedSceneInfo = getPredefinedScenes(globalConfig)
 }
 

@@ -1,6 +1,7 @@
 package eventHandlers
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
@@ -29,6 +30,13 @@ func MessageHandler(s *discordgo.Session, msg *discordgo.MessageCreate) {
 		return
 	case "scenes":
 		respond(predefinedSceneInfo)
+		return
+	case "movies":
+		result := "Available movies:\n"
+		for _, movie := range availableMovies {
+			result += fmt.Sprintln("- ", movie[0], ": `", movie[1], "`")
+		}
+		respond(result)
 		return
 	}
 
