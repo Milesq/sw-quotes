@@ -27,7 +27,7 @@ type Query struct {
 // FromDialogQuery .
 func FromDialogQuery(rawQuery string, movies []srt.MovieData) (config.ScenePtr, error) {
 	var s config.ScenePtr
-	quoteWord := `"([\w\s]+)"(\((\-?[0-9]+)\))?(\[(\d+)\])?`
+	quoteWord := `"([\w\s,;.!'&]+)"(\((\-?[0-9]+)\))?(\[(\d+)\])?`
 	quoteRegexp := `^(#(\d+))?` + quoteWord + `\-` + quoteWord + `$`
 	quote := regexp.MustCompile(quoteRegexp)
 
