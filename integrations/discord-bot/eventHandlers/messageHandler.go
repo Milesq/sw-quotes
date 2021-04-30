@@ -9,9 +9,7 @@ import (
 const prefix = "quote!"
 
 func MessageHandler(s *discordgo.Session, msg *discordgo.MessageCreate) {
-	respond := func(content string) {
-		s.ChannelMessageSend(msg.ChannelID, content)
-	}
+	respond := createResponder(s, msg.ChannelID)
 
 	if s.State.User.ID == msg.Author.ID {
 		return
