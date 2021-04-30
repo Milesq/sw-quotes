@@ -18,7 +18,7 @@ func parseQuery(r *regexp.Regexp, s string) Query {
 	parts := r.FindStringSubmatch(s)
 
 	return Query{
-		MovieID: atoi(parts[2]),
+		MovieID: parts[2],
 		BegPhrase: Phrase{
 			Str:    parts[3],
 			Offset: atoi(parts[5]),

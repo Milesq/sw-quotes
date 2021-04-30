@@ -19,7 +19,7 @@ type Phrase struct {
 
 // Query .
 type Query struct {
-	MovieID   int
+	MovieID   string
 	BegPhrase Phrase
 	EndPhrase Phrase
 }
@@ -36,6 +36,13 @@ func FromDialogQuery(rawQuery string, movies []srt.MovieData) (config.ScenePtr, 
 	}
 
 	query := parseQuery(quote, rawQuery)
+
+	if query.MovieID != "" {
+		movies = funk.Filter(movies, func(el srt.MovieData) bool {
+			return el.MovieID == query.MovieID
+		}).([]srt.MovieData)
+	}
+
 	begScene, err := findPhrase(query.BegPhrase, movies)
 	if err != nil {
 		return s, err
