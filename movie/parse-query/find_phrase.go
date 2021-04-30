@@ -26,6 +26,19 @@ func findPhrase(phrase Phrase, movies []srt.MovieData) (srt.MovieData, error) {
 		}
 	}
 
+	if phrase.I != -1 {
+		if len(foundedScene) <= phrase.I {
+			err := fmt.Sprintln("There is only ", len(foundedScene), " scenes")
+			for _, scene := range foundedScene {
+				err += fmt.Sprintf("`%v`\n", scene.Srts[0].Text)
+				err += scene.Srts[0].Begin.String() + "\n\n"
+			}
+
+			return srt.MovieData{}, errors.New(err)
+		}
+		foundedScene = []srt.MovieData{foundedScene[phrase.I]}
+	}
+
 	switch len(foundedScene) {
 	case 1:
 		return foundedScene[0], nil
