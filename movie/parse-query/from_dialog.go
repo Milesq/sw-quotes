@@ -2,7 +2,6 @@ package getscene
 
 import (
 	"errors"
-	"fmt"
 	"regexp"
 	"strings"
 
@@ -26,7 +25,8 @@ type Query struct {
 }
 
 // FromDialogQuery .
-func FromDialogQuery(rawQuery string, movies []srt.MovieData) (s config.ScenePtr, nil error) {
+func FromDialogQuery(rawQuery string, movies []srt.MovieData) (config.ScenePtr, error) {
+	var s config.ScenePtr
 	quoteWord := `"([\w\s]+)"(\((\-?[0-9]+)\))?(\[(\d+)\])?`
 	quoteRegexp := `^(#(\d+))?` + quoteWord + `\-` + quoteWord + `$`
 	quote := regexp.MustCompile(quoteRegexp)
@@ -38,12 +38,12 @@ func FromDialogQuery(rawQuery string, movies []srt.MovieData) (s config.ScenePtr
 	query := parseQuery(quote, rawQuery)
 	begScene, err := findPhrase(query.BegPhrase.Str, movies)
 	if err != nil {
-		fmt.Println(err)
+		return s, err
 	}
 
 	endScene, err := findPhrase(query.EndPhrase.Str, movies)
 	if err != nil {
-		fmt.Println(err)
+		return s, err
 	}
 
 	if begScene.MovieID != endScene.MovieID {
@@ -68,7 +68,7 @@ func FromDialogQuery(rawQuery string, movies []srt.MovieData) (s config.ScenePtr
 		},
 	}
 
-	return
+	return s, nil
 }
 
 func get_srt_between_scenes(wholeSrts []srt.Subtitle, beg, end srt.Subtitle) []srt.Subtitle {
