@@ -9,7 +9,7 @@ func parseQuery(r *regexp.Regexp, s string) Query {
 	atoi := func(str string) int {
 		num, err := strconv.Atoi(str)
 		if err != nil {
-			return 0
+			return -1
 		}
 
 		return num
