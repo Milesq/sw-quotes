@@ -32,7 +32,7 @@ func FromDialogQuery(rawQuery string, movies []srt.MovieData) (config.ScenePtr, 
 	quote := regexp.MustCompile(quoteRegexp)
 
 	if !quote.MatchString(rawQuery) {
-		return s, ErrNotFound
+		return s, ErrQueryDoesntMatch
 	}
 
 	query := parseQuery(quote, rawQuery)
