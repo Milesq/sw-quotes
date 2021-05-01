@@ -9,6 +9,9 @@
 # Simple query
 You can send simple query as follows `"begin phrase"-"end phrase"`.
 
+# Short version
+If u want cut just one scene, you can pass one phrase like this: `"hello there"`
+
 # Explicit declare movie ID
 
 Sometimes you want to be sure this engine will respond with gif from specific movie. You can use movie id. The query will be in this form `#movieID"begin phrase"-"end phrase"`

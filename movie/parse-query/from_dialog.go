@@ -2,6 +2,7 @@ package getscene
 
 import (
 	"errors"
+	"fmt"
 	"regexp"
 	"strings"
 
@@ -30,6 +31,12 @@ func FromDialogQuery(rawQuery string, movies []srt.MovieData) (config.ScenePtr, 
 	quoteWord := `"([^"]+)"(\((\-?[0-9]+)\))?(\[(\d+)\])?`
 	quoteRegexp := `^(#(\w+))?` + quoteWord + `\-` + quoteWord + `$`
 	quote := regexp.MustCompile(quoteRegexp)
+
+	isShortQuery := regexp.MustCompile("^" + quoteWord + "$").MatchString(rawQuery)
+	if isShortQuery {
+		rawQuery = rawQuery + "-" + rawQuery
+	}
+	fmt.Println(rawQuery)
 
 	if !quote.MatchString(rawQuery) {
 		return s, ErrQueryDoesntMatch
