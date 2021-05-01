@@ -1,3 +1,10 @@
+**Available Commands**
+- help
+- movies
+- scenes
+
+**Query building**
+
 ```julia
 # Simple query
 You can send simple query as follows `"begin phrase"-"end phrase"`.
