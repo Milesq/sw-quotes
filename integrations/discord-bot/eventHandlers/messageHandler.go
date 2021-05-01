@@ -44,6 +44,7 @@ func MessageHandler(s *discordgo.Session, msg *discordgo.MessageCreate) {
 
 	if err != nil {
 		respond(err.Error())
+		return
 	}
 
 	respond(result.Srt)
